@@ -1,54 +1,32 @@
+const { Position } = require("./Position");
 
-const hasEmptySpaceOnGameboard = (board) => {
-    let emptyBoardSpace = false;
+const getsEmptyPositionAvailable = (board) => {
+    let positions = []
     for (let y = 0; y < board.length; y++) {
         for (let x = 0; x < board.length; x++) {
-            let position = board[y][x];
-            if (position == "") {
-                emptyBoardSpace = true;
-            }
+            let space = board[y][x];
+            if (space == "") {
+                an_empty_position = [y, x];
+                positions.push(an_empty_position);
+            } 
         }
     }
-    return emptyBoardSpace
+    return positions
 } // this function allows the for loop 3to move through the empty spaces on
     //the board until an empty space is available
-const getEmptyPosition = (board) => {
-    let notFound = true;
-    let randomPostion = []
+const getEmptyPosition = (board, positions) => {
+    // = [a_position, b_position, c_position]
+    let emptyPositions = getsEmptyPositionAvailable(board);
+    if(emptyPositions.length == 0)  {
+        return []
+    } 
+    // = an integeger, 0 to emptyPositions.length
+    let positionIndex = Math.round(getRandomInt(0, emptyPositions.length -1))
+    
+    console.debug("positionIndex:", positionIndex);
+    console.debug("emptyPositions:", emptyPositions);
 
-    while (notFound && hasEmptySpaceOnGameboard(board)) {
-        let getRandomPosition = Math.round(getRandomInt(1,9))
-
-        if(getRandomPosition == 1) {
-            randomPostion = [0,0]
-        } else if(getRandomPosition == 2) {
-            randomPostion = [0,1]
-        } else if(getRandomPosition == 3) {
-            randomPostion = [0,2]
-        } else if(getRandomPosition == 4) {
-            randomPostion = [1,0]
-        } else if(getRandomPosition == 5) {
-            randomPostion = [1,1]
-        } else if(getRandomPosition == 6) {
-            randomPostion = [1,2]
-        } else if(getRandomPosition == 7) {
-            randomPostion = [2,0]
-        } else if(getRandomPosition == 8) {
-            randomPostion = [2,1]
-        } else if(getRandomPosition == 9) {
-            randomPostion = [2,2]
-        } else {
-            throw "Invalid Random Number" + getRandomPosition;
-        }
-
-        let position = board[randomPostion[0]][randomPostion[1]]
-        if(position == "") {
-            notFound = false;
-        } // we don't need this 
-
-    }
-
-    return randomPostion
+    return emptyPositions[positionIndex]
 
 }
 
@@ -57,11 +35,24 @@ const getRandomInt = (min, max) => {
 } //random number generator
 
 const fillWithLetter = (board, position, char) => {
-    board[position[0]][position[1]] = char;
+    let coolPosition = new Position(position[1],position[0]);
+    console.log("position", position);
+    console.log("coolPosition.y", coolPosition.y);
+    console.log("coolPosition.x", coolPosition.x);
+    console.log("board[coolPosition.y]", board[coolPosition.y]);
+    console.log("board[coolPosition.y][coolPosition.x]", board[coolPosition.y][coolPosition.x]);
+    board[coolPosition.y][coolPosition.x] = char;
     return board
+        //returns a nested array, with empty strings
+} //y = 0
+
+const alternateTurns = (num) => {
+    return num % 2 != 0;
 }
 
+
 const hasWon = (board, player) => {
+    
     if(JSON.stringify(board[0]) == JSON.stringify([player, player, player]) ) {
         return true;
      } else if(JSON.stringify(board[1]) == JSON.stringify([player, player, player])) {
@@ -84,12 +75,7 @@ const hasWon = (board, player) => {
 
 } //this function sets up the rules for a winning game (didwin)
 
-
-const alternateTurns = (num) => {
-    return num % 2 != 0;
-} //isodd 
-
-const play = () => {
+const play = () => { 
 
     let currentPlayer = ""
 
@@ -101,31 +87,30 @@ const play = () => {
 
     let turn = 1;
 
-    while(hasEmptySpaceOnGameboard(tikTakToeBoard)){
+    while(getsEmptyPositionAvailable(tikTakToeBoard).length > 0){
         if (alternateTurns(turn)) {
             currentPlayer = "x"
         } else {
             currentPlayer = "o"
         }
-        
-        if(hasWon(tikTakToeBoard, currentPlayer)) {
-            console.log("Congrats" + currentPlayer)
-            break;
-        }
 
         let emptyLocation = getEmptyPosition(tikTakToeBoard);
+
         fillWithLetter(tikTakToeBoard, emptyLocation, currentPlayer);
+         
         console.log(turn, currentPlayer, tikTakToeBoard);
         turn++
     }
 
-    if(hasEmptySpaceOnGameboard(tikTakToeBoard) == false && hasWon(tikTakToeBoard, "x") == false && winningRules(tikTakToeBoard, "o") == false) {
-        console.log("It's a draw!")
-    }
+    if(getsEmptyPositionAvailable(tikTakToeBoard).length == 0 && hasWon(tikTakToeBoard, "x") == false && hasWon(tikTakToeBoard, "o") == false) {
 
+        console.log("It's a draw!");
+    } else {
+        console.log("Congrats", currentPlayer);
+    }
 }
 
-exports.hasEmptySpaceOnGameboard = hasEmptySpaceOnGameboard
+exports.getsEmptyPositionAvailable = getsEmptyPositionAvailable
 exports.getEmptyPosition = getEmptyPosition
 exports.getRandomInt = getRandomInt
 exports.fillWithLetter = fillWithLetter

@@ -144,6 +144,24 @@ describe("hasWon", ()=> {
         ];
         expect(tiktaktoe.hasWon(board, "o")).toEqual(true);
     } )
+
+    test("it will return true when there is a winner!", () => {
+        let board = [
+            ["o", "o", "o"],
+            ["x", "o", "x"],
+            ["", "x", "x"]
+        ];
+        expect(tiktaktoe.hasWon(board, "o")).toEqual(true)
+    } )
+
+    test("it will return true when there is a winner!", () => {
+        let board = [ 
+            [ 'o', 'o', 'x' ], 
+            [ 'x', 'o', 'o' ], 
+            [ 'x', 'x', 'x' ] 
+        ];
+        expect(tiktaktoe.hasWon(board, "x")).toEqual(true)
+    } )
     
     test("it will return false when there is no winner", () => {
         let board = [
@@ -151,6 +169,10 @@ describe("hasWon", ()=> {
             ["x", "x", "o"],
             ["o", "x", "o"]
         ];
-        expect(tiktaktoe.hasWon(board)).toEqual(false)
+        expect(tiktaktoe.hasWon(board, "o")).toEqual(false)
+        expect(tiktaktoe.hasWon(board, "x")).toEqual(false)
+       
     } )
+
+    
 })

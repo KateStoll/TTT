@@ -5,12 +5,27 @@
   "main": "tiktaktoe.js",
   "scripts": {
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "ci": "ci"
   },
   "devDependencies": {
     "eslint": "^8.13.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
     "jest": "^27.5.1"
   },
+  "jest": {
+    "collectCoverage": true,
+    "verbose": true,
+    "coverageReporters": ["json", "html", "text"],
+    "collectCoverageFrom": [
+        "**/*.js",
+        "!**/.*.js",
+        "!**/node_modules/**",
+        "!coverage/*"
+
+    ]
+},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ViennaElric/TTT.git"
@@ -20,5 +35,8 @@
   "bugs": {
     "url": "https://github.com/ViennaElric/TTT/issues"
   },
-  "homepage": "https://github.com/ViennaElric/TTT#readme"
+  "homepage": "https://github.com/ViennaElric/TTT#readme",
+  "dependencies": {
+    "ci": "^2.1.1"
+  }
 }
