@@ -1,3 +1,4 @@
+const { functionDeclaration } = require("@babel/types");
 const { Position } = require("./Position");
 
 const getsEmptyPositionAvailable = (board) => {
@@ -12,8 +13,25 @@ const getsEmptyPositionAvailable = (board) => {
         }
     }
     return positions
+    //return an array of positions with coolpositions concept dont modify gets make a new func
 } // this function allows the for loop 3to move through the empty spaces on
     //the board until an empty space is available
+
+const getsEmptyPositionsAvailable = (board) => {
+    let positions = []
+    for(y = 0; y < board.length; y++){
+        for(x = 0; x < board[y].length; x++){
+            let space = board[y][x];
+            if (space == "") {
+                an_empty_position = new Position(y,x);
+                //y,x is the default value
+                positions.push(an_empty_position);
+            }
+        }
+    }
+    return positions;
+}
+
 const getEmptyPosition = (board, positions) => {
     // = [a_position, b_position, c_position]
     let emptyPositions = getsEmptyPositionAvailable(board);
@@ -22,9 +40,6 @@ const getEmptyPosition = (board, positions) => {
     } 
     // = an integeger, 0 to emptyPositions.length
     let positionIndex = Math.round(getRandomInt(0, emptyPositions.length -1))
-    
-    console.debug("positionIndex:", positionIndex);
-    console.debug("emptyPositions:", emptyPositions);
 
     return emptyPositions[positionIndex]
 
@@ -110,6 +125,7 @@ const play = () => {
     }
 }
 
+exports.getsEmptyPositionsAvailable = getsEmptyPositionsAvailable
 exports.getsEmptyPositionAvailable = getsEmptyPositionAvailable
 exports.getEmptyPosition = getEmptyPosition
 exports.getRandomInt = getRandomInt
