@@ -12,21 +12,25 @@
     "eslint": "^8.13.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
-    "jest": "^27.5.1"
+    "jest": "^27.5.1",
+    "jest-extended": "^3.0.1"
   },
   "jest": {
     "collectCoverage": true,
     "verbose": true,
-    "coverageReporters": ["json", "html", "text"],
+    "coverageReporters": [
+      "json",
+      "html",
+      "text"
+    ],
     "collectCoverageFrom": [
-        "**/*.js",
-        "!**/.*.js",
-        "!**/node_modules/**",
-        "!main.js",
-        "!coverage/*"
-
+      "**/*.js",
+      "!**/.*.js",
+      "!**/node_modules/**",
+      "!main.js",
+      "!coverage/*"
     ]
-},
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ViennaElric/TTT.git"

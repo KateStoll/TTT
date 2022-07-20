@@ -1,3 +1,4 @@
+const { Position } = require("../Position.js");
 const tiktaktoe = require("../tiktaktoe.js")
 
 describe("fillWithLetter", ()=> {
@@ -10,7 +11,7 @@ describe("fillWithLetter", ()=> {
             ["", "", ""]
         ];
 
-        const position = [0,0];
+        const position = new Position(0, 0);
 
         const char = "x";
 

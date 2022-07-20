@@ -1,7 +1,7 @@
 class Position {
-    constructor(input_x, input_y) {
-        this.x = input_x;
+    constructor(input_y, input_x) {
         this.y = input_y;
+        this.x = input_x;
     }
 }
 

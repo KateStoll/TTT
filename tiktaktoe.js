@@ -1,10 +1,9 @@
-const { functionDeclaration } = require("@babel/types");
 const { Position } = require("./Position");
 
 const getsEmptyPositionAvailable = (board) => {
     let positions = []
     for (let y = 0; y < board.length; y++) {
-        for (let x = 0; x < board.length; x++) {
+        for (let x = 0; x < board[y].length; x++) {
             let space = board[y][x];
             if (space == "") {
                 an_empty_position = [y, x];
@@ -32,17 +31,23 @@ const getsEmptyPositionsAvailable = (board) => {
     return positions;
 }
 
-const getEmptyPosition = (board, positions) => {
-    // = [a_position, b_position, c_position]
-    let emptyPositions = getsEmptyPositionAvailable(board);
-    if(emptyPositions.length == 0)  {
+const getEmptyPosition = (board) => {
+    let emptyCoolPositions = getsEmptyPositionsAvailable(board);
+    //let emptyPositions = getsEmptyPositionAvailable(board);
+    if(emptyCoolPositions.length == 0)  {
         return []
     } 
     // = an integeger, 0 to emptyPositions.length
-    let positionIndex = Math.round(getRandomInt(0, emptyPositions.length -1))
+    let positionIndex = Math.round(getRandomInt(0, emptyCoolPositions.length -1))
+    
+    return emptyCoolPositions[positionIndex];
 
-    return emptyPositions[positionIndex]
+    //line 45 gets an item out of the array, returns an position obj
 
+ // this function gets one position from the board in the form of the position class
+ //this func gets an entire array of empty positions available thne usses a random number genrateor to pick one of them
+ 
+ 
 }
 
 const getRandomInt = (min, max) => {
@@ -50,13 +55,8 @@ const getRandomInt = (min, max) => {
 } //random number generator
 
 const fillWithLetter = (board, position, char) => {
-    let coolPosition = new Position(position[1],position[0]);
-    console.log("position", position);
-    console.log("coolPosition.y", coolPosition.y);
-    console.log("coolPosition.x", coolPosition.x);
-    console.log("board[coolPosition.y]", board[coolPosition.y]);
-    console.log("board[coolPosition.y][coolPosition.x]", board[coolPosition.y][coolPosition.x]);
-    board[coolPosition.y][coolPosition.x] = char;
+    //converted the array with 2 intgers to a class
+    board[position.y][position.x] = char;
     return board
         //returns a nested array, with empty strings
 } //y = 0
@@ -110,6 +110,7 @@ const play = () => {
         }
 
         let emptyLocation = getEmptyPosition(tikTakToeBoard);
+        // a position obj
 
         fillWithLetter(tikTakToeBoard, emptyLocation, currentPlayer);
          

@@ -1,3 +1,6 @@
+const jse = require('jest-extended')
+expect.extend(jse)
+
 const tiktaktoe = require("../tiktaktoe.js")
 
 describe("getEmptyPosition", ()=> {
@@ -12,8 +15,9 @@ describe("getEmptyPosition", ()=> {
             ["", "x", ""]
         ];
         let emptySpace = tiktaktoe.getEmptyPosition(board)
-        expect([0,1,2]).toContain(emptySpace[0])
-        expect([0,2]).toContain(emptySpace[1])
+        console.log("::::::::", emptySpace)
+        expect(emptySpace["y"]).toBeOneOf([0,1,2])
+        expect(emptySpace["x"]).toBeOneOf([0,2])
         expect(Math.random).toHaveBeenCalled();
     } )
     
