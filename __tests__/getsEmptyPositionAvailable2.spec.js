@@ -40,7 +40,7 @@ describe("getsEmptyPositionsAvailable", ()=> {
             ["x", "x", "x"],
             ["x", "x", "x"]
         ];
-        expect(tiktaktoe.getsEmptyPositionAvailable(board)).toEqual([]);
+        expect(tiktaktoe.getsEmptyPositionsAvailable(board)).toEqual([]);
     })
 
 })
